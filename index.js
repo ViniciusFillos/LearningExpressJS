@@ -1,8 +1,9 @@
 const express = require('express');
-
 const server = express();
+const cors = require('cors');
 
 server.listen(3000);
+server.use(cors());
 
 const users = [{
     id: 0,
@@ -24,7 +25,7 @@ server.get('/users/:id', (req, res) => {
     const user = users.find(x => x.id == id);
 
     if(user)
-        res.status(201).send(user);
+        res.status(200).send(user);
     else 
         res.status(404).send('User not found');
 })
