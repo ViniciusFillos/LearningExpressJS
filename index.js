@@ -1,9 +1,11 @@
 const express = require('express');
 const server = express();
 const cors = require('cors');
+const {response} = require("express");
 
 server.listen(3000);
 server.use(cors());
+server.use(express.json())
 
 const users = [{
     id: 0,
@@ -18,11 +20,16 @@ server.get('/', (req, res) => {
 
 server.get('/users', (req, res) => {
     res.status(200).json(users);
-})
+});
+
+server.post('/users', (req, res) => {
+    users.push(req.body);
+    res.status(201).send(users);
+});
 
 server.get('/users/:id', (req, res) => {
     const id = req.params.id;
-    const user = users.find(x => x.id == id);
+    const user = users.find(x => x.id === id);
 
     if(user)
         res.status(200).send(user);
