@@ -45,7 +45,7 @@ server.delete('/users/:id',(req, res) => {
         users.splice(indexUserToBeDeleted, 1);
         res.status(200).send(userToBeDeleted);
     } else {
-        res.status(404).send('User not found');
+        res.status(404).send({ message: 'User not found'});
     }
 });
 
@@ -62,9 +62,23 @@ server.patch('/users/:id', (req, res) => {
 
         res.status(200).send(users[indexUserToBeModifed]);
     } else {
-        res.status(404).send('User not found');
+        res.status(404).send({ message: 'User not found'});
     }
 });
+
+server.put('/users/:id', (req, res) => {
+    const idUserToBeModified = +req.params.id;
+    const newUser = req.body;
+
+    const indexUserToBeModified = users.findIndex(x => x.id === idUserToBeModified);
+
+    if (indexUserToBeModified >= 0) {
+        users[indexUserToBeModified] = newUser;
+        res.status(200).send(users[indexUserToBeModified]);
+    } else {
+        res.status(404).send({ message:  'User not found'});
+    }
+})
 
 server.get('/users/:id', (req, res) => {
     const id = +req.params.id;
@@ -73,7 +87,7 @@ server.get('/users/:id', (req, res) => {
     if(user)
         res.status(200).send(user);
     else 
-        res.status(404).send('User not found');
+        res.status(404).send({ message: 'User not found'});
 })
 
 server.use((req, res) => {

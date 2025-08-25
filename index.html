@@ -12,7 +12,8 @@
         //xhr.open('GET', 'http://127.0.0.1:3000/users/0');
         //xhr.open('POST', 'http://127.0.0.1:3000/users');
         //xhr.open('DELETE', 'http://127.0.0.1:3000/users/2');
-        xhr.open('PATCH', 'http://127.0.0.1:3000/users/2');
+        //xhr.open('PATCH', 'http://127.0.0.1:3000/users/2');
+        xhr.open('PUT', 'http://127.0.0.1:3000/users/0');
 
         xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -21,9 +22,9 @@
         };
 
         const user = {
-            //id: 0,
-            name: 'Fabio',
-            age: 33
+            id: 0,
+            name: 'Ana',
+            age: 20
         }
 
         xhr.send(JSON.stringify(user));
