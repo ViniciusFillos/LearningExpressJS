@@ -10,9 +10,10 @@
         const xhr = new XMLHttpRequest();
         //xhr.open('GET', 'http://127.0.0.1:3000/users');
         //xhr.open('GET', 'http://127.0.0.1:3000/users/0');
-        xhr.open('POST', 'http://127.0.0.1:3000/users');
+        //xhr.open('POST', 'http://127.0.0.1:3000/users');
+        xhr.open('DELETE', 'http://127.0.0.1:3000/users/2');
 
-        xhr.setRequestHeader('Content-Type', 'application/json');
+        //xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = () => {
             console.log(xhr.response)
@@ -24,7 +25,8 @@
             age: 33
         }
 
-        xhr.send(JSON.stringify(user));
+        //xhr.send(JSON.stringify(user));
+        xhr.send();
     </script>
     <h2>
         Http request test
