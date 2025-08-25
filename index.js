@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const cors = require('cors');
 const {response, request} = require("express");
+const {use} = require("express/lib/application");
 
 server.listen(3000);
 server.use(cors());
@@ -41,16 +42,33 @@ server.delete('/users/:id',(req, res) => {
     const userToBeDeleted = users[indexUserToBeDeleted];
 
     if (indexUserToBeDeleted >= 0) {
-        users.splice(indexUserToBeDeleted, 1)
+        users.splice(indexUserToBeDeleted, 1);
         res.status(200).send(userToBeDeleted);
     } else {
-        res.status(404).send('User not found')
+        res.status(404).send('User not found');
+    }
+});
+
+server.patch('/users/:id', (req, res) => {
+    const idUserToBeModifed = +req.params.id;
+    const props = req.body;
+
+    const indexUserToBeModifed = users.findIndex(x => x.id === idUserToBeModifed);
+
+    if (indexUserToBeModifed >= 0) {
+        const userToBeModified = users[indexUserToBeModifed];
+
+        users[indexUserToBeModifed] = {...userToBeModified, ...props};
+
+        res.status(200).send(users[indexUserToBeModifed]);
+    } else {
+        res.status(404).send('User not found');
     }
 });
 
 server.get('/users/:id', (req, res) => {
-    const id = req.params.id;
-    const user = users.find(x => x.id === +id);
+    const id = +req.params.id;
+    const user = users.find(x => x.id === id);
 
     if(user)
         res.status(200).send(user);
